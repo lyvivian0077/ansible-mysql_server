@@ -1,16 +1,19 @@
 ---
 # tasks file for mysql-server
 - name: install MySQL 
+  sudo_user: root
   yum: name=mysql-server state=present
   when: ansible_distribution in ("CentOS", "RedHat", "Amazon")
   environment: proxy_env
 
 - name: install MySQL on Debian derived OSes
+  sudo_user: root
   apt: name=mysql-server state=present
   when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
   environment: proxy_env
 
 - name: ensure MySQL starts on boot
+  sudo_user: root
   service: name=mysqld enabled=yes state=started
 
 - name: lock down root user
